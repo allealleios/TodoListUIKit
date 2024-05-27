@@ -32,6 +32,11 @@ class AddTodoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /*
+         Ruel: Backgroundcolor 설정은 setupUI 메서드 안에 작성해주는게 UI Setting한다는것을 
+                명확하게 알 수 있을것 같음
+         */
         view.backgroundColor = .white
         setupUI()
         setupNavigationBar()
@@ -58,6 +63,7 @@ class AddTodoViewController: UIViewController {
     }
     
     @objc private func saveButtonTapped() {
+        //Ruel: 해당부분을 ViewModel을 생성해서 분리할 수 있을 듯, 명확한 비지니스 로직 분리
         guard let title = textField.text, !title.isEmpty else { return }
         let date = datePicker.date
         let newTodo = Todo(title: title, isComplete: false, date: date)
