@@ -51,6 +51,8 @@ class TodoViewModel {
     
     // UserDefaults에 저장
     private func saveTodo() {
+        // saveTodo() 이후에 sortTodoDate()가 반복되는거 같아서
+        // 여기에 sortTodoDate()를 넣으면 어떨까 싶음
         if let encoded = try? JSONEncoder().encode(todo) {
             UserDefaults.standard.set(encoded, forKey: "todo")
         }

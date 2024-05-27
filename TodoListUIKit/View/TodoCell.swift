@@ -90,6 +90,7 @@ class TodoCell: UITableViewCell {
         
         let buttonImage = todo.isComplete ? "checkmark.circle.fill" : "circle"
         completeButton.setImage(UIImage(systemName: buttonImage), for: .normal)
+        // completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)를 여기다가 적었어도 괜찮을거 같음
         
         titleLabel.textColor = todo.isComplete ? .lightGray : .black
         
