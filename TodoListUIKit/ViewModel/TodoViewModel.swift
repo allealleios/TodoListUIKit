@@ -7,6 +7,8 @@
 
 import Foundation
 
+// saveTodo(), sortTodoDate() 를 매 함 수마다 사용하지 말고 UserDefaults를 확장시켜서  didSet{ saveTodo() or sortTodoDate() or loadTodo()} 하면 코드가 짧아지지 않았을까 생각듭니당
+
 class TodoViewModel {
     private(set) var todo: [Todo] = []
     

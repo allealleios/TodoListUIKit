@@ -9,6 +9,7 @@ import UIKit
 
 class TodoViewController: UIViewController {
     
+    // Store에서 관리하면 어땠을지..?
     private let viewModel = TodoViewModel()
     
     private let tableView: UITableView = {
@@ -48,6 +49,7 @@ class TodoViewController: UIViewController {
     }
 }
 
+// 2Store에서 관리하면 어땠을지..?2222
 extension TodoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfTodo
@@ -70,6 +72,8 @@ extension TodoViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    // edit이랑 add 수정 부분 같을 경우에 하나의 뷰로 분기처리해서 사용하시면 수정 및 가독성 더 좋아지지 않을까..?하는 생각입니다!
+    //     var todo: Todo? 가 존재할시는 수정,  없을 시는 추가
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let editTodoVC = EditTodoViewController()
@@ -94,6 +98,7 @@ extension TodoViewController: AddTodoDelegate {
     }
 }
 
+// update 부분에서 delegate?.editTodo(todo, at: index)를 사용하였는데 바뀐 부분만 넣은 이유..? 나중에 수정 부분이 많아 질 겨웅 그냥 todo를 보내서 index번호 찾은 수 수정 하는 방향이 더 좋을거같습니다!!
 extension TodoViewController: EditTodoDelegate {
     func editTodo(_ todo: Todo, at index: Int) {
         viewModel.updateTodo(at: index, with: todo.title, date: todo.date)
