@@ -20,6 +20,7 @@ class TodoViewModel {
         loadTodo()
     }
     
+    //Ruel: 함수명 명확하게 수정 필요 ex) getTodo(at index:)
     func todo(at index: Int) -> Todo {
         return todo[index]
     }
@@ -65,17 +66,25 @@ class TodoViewModel {
         if let saveTodo = UserDefaults.standard.object(forKey: "todo") as? Data {
             if let decodedTodo = try? JSONDecoder().decode([Todo].self, from: saveTodo) {
                 todo = decodedTodo
+                /*
+                 Ruel: loadTodo시 sort를 하게 된다면 sortTodoDate 메서드 불필요해짐
+                 todo = decodedTodo.sorted(by: { $0.date > $1.date })
+                 */
                 sortTodoDate()
             }
         }
     }
     
+    /*
+     Ruel: loadTodo시 sort를 하게 된다면 해당 메서드 불필요해짐
+     */
+    
     private func sortTodoDate() {
         todo.sort { ($0.date > $1.date) }
     }
     
-//    isComplete로 sort하는 함수 구현해야함
-//    private func sortTodoIsComplete() {
-//        todo.sort { ($0.isComplete == true) }
-//    }
+    //    isComplete로 sort하는 함수 구현해야함
+    //    private func sortTodoIsComplete() {
+    //        todo.sort { ($0.isComplete == true) }
+    //    }
 }
