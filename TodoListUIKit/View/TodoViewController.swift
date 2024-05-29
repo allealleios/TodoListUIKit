@@ -20,13 +20,13 @@ class TodoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        // title도 setupUI()에 넣으면 좋을거 같음
         title = "ToDo List"
     }
     
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(tableView)
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.identifier)
@@ -63,6 +63,7 @@ extension TodoViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.toggleCompleteAction = { [weak self] in
             self?.viewModel.toggleComplete(at: indexPath.row)
+            // 여기 tableView도 self?.을 붙여주는게 좋을거 같음
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
         
