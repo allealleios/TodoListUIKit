@@ -6,35 +6,14 @@
 //
 
 import UIKit
+import Combine
 
-protocol EditTodoDelegate: AnyObject {
-    func editTodo(_ todo: Todo, at index: Int)
-}
 
 class EditTodoViewController: UIViewController {
     
-    var delegate: EditTodoDelegate?
     var todo: Todo?
     var index: Int?
-    
-    /*
-     Ruel: TodoViewController에 주석을 남긴부분 예시 코드
-     init(todo: Todo? = nil, index: Int? = nil) {
-     self.todo = todo
-     self.index = index
-     super.init(nibName: nil, bundle: nil)
-     }
-     
-     
-     func setup(todo: Todo, index: Int) {
-     self.todo = todo
-     self.index = index
-     }
-     
-     ->> 위와 같다면 todo, index를 private로 바꿔줄 수 있고
-     외부에서 데이터를 변경 할 수 없게 만들기 때문에 안정성 확보 가능
-     */
-    // ㄴ 반영완료
+    var editTodoPublisher = PassthroughSubject<(Todo, Int), Never>()
     
     init(todo: Todo, index: Int) {
         self.todo = todo
@@ -95,14 +74,14 @@ class EditTodoViewController: UIViewController {
     }
     
     @objc private func saveButtonTapped() {
-        //Ruel: 해당 부분은 ViewModel을 생성해서 분리할 수 있을 듯, 명확한 비지니스 로직 분리
         guard let title = textField.text, !title.isEmpty else { return }
         guard let index = index else { return }
         let date = datePicker.date
         todo?.title = title
         todo?.date = date
         if let todo = todo {
-            delegate?.editTodo(todo, at: index)
+            editTodoPublisher.send((todo, index))
+            
             navigationController?.popViewController(animated: true)
         }
     }

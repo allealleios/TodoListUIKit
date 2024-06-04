@@ -7,9 +7,9 @@
 
 import Foundation
 
-// Todo 모델
-struct Todo: Codable {
+struct Todo: Codable, Identifiable {
     
+    let id = UUID()
     var title: String
     var isComplete: Bool
     var date: Date

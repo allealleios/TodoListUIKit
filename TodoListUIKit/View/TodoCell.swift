@@ -47,7 +47,6 @@ class TodoCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
-        //        setupBindings()
     }
     
     required init?(coder: NSCoder) {
@@ -68,14 +67,8 @@ class TodoCell: UITableViewCell {
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
             completeButton.widthAnchor.constraint(equalTo: completeButton.heightAnchor)
-            
         ])
     }
-    
-    // isComplete 버튼 액션
-    //    private func setupBindings() {
-    //        completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
-    //    }
     
     @objc private func completeButtonTapped() {
         toggleCompleteAction?()
@@ -90,8 +83,6 @@ class TodoCell: UITableViewCell {
         
         let buttonImage = todo.isComplete ? "checkmark.circle.fill" : "circle"
         completeButton.setImage(UIImage(systemName: buttonImage), for: .normal)
-        // completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)를 여기다가 적었어도 괜찮을거 같음
-        // ㄴ 반영완료
         completeButton.removeTarget(nil, action: nil, for: .allEvents)
         completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
         
