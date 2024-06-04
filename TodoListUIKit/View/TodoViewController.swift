@@ -22,7 +22,7 @@ class TodoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        
+        setupBindings()
     }
     
     private func setupUI() {
