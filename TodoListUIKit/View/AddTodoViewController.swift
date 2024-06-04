@@ -37,13 +37,14 @@ class AddTodoViewController: UIViewController {
          Ruel: Backgroundcolor 설정은 setupUI 메서드 안에 작성해주는게 UI Setting한다는것을
          명확하게 알 수 있을것 같음
          */
+        // ㄴ 반영완료
         
-        view.backgroundColor = .white
         setupUI()
         setupNavigationBar()
     }
     
     private func setupUI() {
+        view.backgroundColor = .white
         view.addSubview(textField)
         view.addSubview(datePicker)
         

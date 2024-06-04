@@ -13,7 +13,7 @@ protocol EditTodoDelegate: AnyObject {
 
 class EditTodoViewController: UIViewController {
     
-    weak var delegate: EditTodoDelegate?
+    var delegate: EditTodoDelegate?
     var todo: Todo?
     var index: Int?
     
@@ -34,6 +34,17 @@ class EditTodoViewController: UIViewController {
      ->> 위와 같다면 todo, index를 private로 바꿔줄 수 있고
      외부에서 데이터를 변경 할 수 없게 만들기 때문에 안정성 확보 가능
      */
+    // ㄴ 반영완료
+    
+    init(todo: Todo, index: Int) {
+        self.todo = todo
+        self.index = index
+        super .init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let textField: UITextField = {
         let textField = UITextField()

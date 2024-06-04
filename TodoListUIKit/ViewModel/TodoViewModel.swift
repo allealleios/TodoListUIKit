@@ -21,7 +21,8 @@ class TodoViewModel {
     }
     
     //Ruel: 함수명 명확하게 수정 필요 ex) getTodo(at index:)
-    func todo(at index: Int) -> Todo {
+    // ㄴ 반영완료
+    func getTodo(at index: Int) -> Todo {
         return todo[index]
     }
     
@@ -30,13 +31,11 @@ class TodoViewModel {
         let newTodo = Todo(title: title, isComplete: false, date: date)
         todo.append(newTodo)
         saveTodo()
-        sortTodoDate()
     }
     
     func toggleComplete(at index: Int) {
         todo[index].isComplete.toggle()
         saveTodo()
-        sortTodoDate()
     }
     
     func deleteTodo(at index: Int) {
@@ -45,32 +44,32 @@ class TodoViewModel {
     }
     
     // Todo 업데이트
-    func updateTodo(at index: Int, with title: String, date: Date) {
-        todo[index].title = title
-        todo[index].date = date
+    func updateTodo(at index: Int, with updateTodo: Todo) {
+        todo[index] = updateTodo
         saveTodo()
-        sortTodoDate()
     }
     
     // UserDefaults에 저장
     private func saveTodo() {
         // saveTodo() 이후에 sortTodoDate()가 반복되는거 같아서
         // 여기에 sortTodoDate()를 넣으면 어떨까 싶음
+        // ㄴ 반영완료
         if let encoded = try? JSONEncoder().encode(todo) {
             UserDefaults.standard.set(encoded, forKey: "todo")
         }
+        todo.sort { ($0.date > $1.date) }
     }
     
     // UserDefaults에서 불러오기
     private func loadTodo() {
         if let saveTodo = UserDefaults.standard.object(forKey: "todo") as? Data {
             if let decodedTodo = try? JSONDecoder().decode([Todo].self, from: saveTodo) {
-                todo = decodedTodo
+                todo = decodedTodo.sorted(by: { $0.date > $1.date })
                 /*
                  Ruel: loadTodo시 sort를 하게 된다면 sortTodoDate 메서드 불필요해짐
                  todo = decodedTodo.sorted(by: { $0.date > $1.date })
                  */
-                sortTodoDate()
+                // ㄴ 반영완료
             }
         }
     }
@@ -78,10 +77,11 @@ class TodoViewModel {
     /*
      Ruel: loadTodo시 sort를 하게 된다면 해당 메서드 불필요해짐
      */
+    // ㄴ 반영완료
     
-    private func sortTodoDate() {
-        todo.sort { ($0.date > $1.date) }
-    }
+//    private func sortTodoDate() {
+//        todo.sort { ($0.date > $1.date) }
+//    }
     
     //    isComplete로 sort하는 함수 구현해야함
     //    private func sortTodoIsComplete() {
